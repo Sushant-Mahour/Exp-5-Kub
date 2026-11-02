@@ -1,0 +1,116 @@
+{
+  "version": 2.0,
+  "questions": [
+    {
+      "question": "Given static water absorption by mass Q = (V₁ / m₁) × 100 and static water absorption by volume P = (V₁ / V₀) × 100, what is the exact algebraic relationship connecting P, Q, and apparent leather density ρ?",
+      "answers": {
+        "a": "P = Q / ρ",
+        "b": "P = Q × ρ",
+        "c": "P = Q + ρ",
+        "d": "P = √(Q × ρ)"
+      },
+      "correctAnswer": "b",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "In Step 6 of the Kubelka procedure, the apparatus is returned to the vertical (0°) position and drained for exactly 60 seconds before reading the meniscus. What specific systematic error does this 60-second standardization control?",
+      "answers": {
+        "a": "It ensures complete thermal equilibration between glass and liquid",
+        "b": "It cleanly separates transient superficial surface runoff from truly imbibed internal water, preventing overestimation from early reading and evaporation losses from prolonged waiting",
+        "c": "It gives sufficient time for dissolved atmospheric air to bubble out of solution",
+        "d": "It allows volatile finish solvents to redeposit on the grain surface"
+      },
+      "correctAnswer": "b",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "A conditioned Chrome-Tanned Upper Leather specimen with dry mass m₁ = 11.850 g and apparent density ρ = 0.78 g/cm³ is tested in the Kubelka apparatus for 30 minutes. If the absorbed water volume is V₁ = 3.5 mL, what are the static water absorption values by mass (Q) and by volume (P)?",
+      "answers": {
+        "a": "Q = 29.54%, P = 23.04%",
+        "b": "Q = 35.20%, P = 27.46%",
+        "c": "Q = 23.04%, P = 29.54%",
+        "d": "Q = 11.85%, P = 15.19%"
+      },
+      "correctAnswer": "a",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "A Vegetable-Tanned Sole Leather specimen (m₁ = 14.520 g, ρ = 0.92 g/cm³, V₀ = 15.78 cm³) undergoes 30 minutes static immersion followed by 60 seconds drainage. The final meniscus reading indicates V₁ = 5.8 mL absorbed. What are the calculated values of Q and P?",
+      "answers": {
+        "a": "Q = 39.94%, P = 36.76%",
+        "b": "Q = 45.12%, P = 41.51%",
+        "c": "Q = 36.76%, P = 39.94%",
+        "d": "Q = 28.60%, P = 24.31%"
+      },
+      "correctAnswer": "a",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "Based on experimental findings where Vegetable-Tanned Sole Leather absorbed 39.94% water by mass (compared to 29.54% for Chrome-Tanned Upper Leather), which industrial treatment is essential before deploying vegetable-tanned leather as outsoles in outdoor footwear?",
+      "answers": {
+        "a": "Alkali stripping to hydrolyze residual vegetable tannins",
+        "b": "Hot-stuffing or vacuum impregnation with hydrophobic waxes, solid greases, or silicone emulsions to block the porous capillary network",
+        "c": "Mechanical skiving to reduce sole thickness below 1.0 mm",
+        "d": "Controlled pin-pricking to enhance rapid liquid re-evaporation"
+      },
+      "correctAnswer": "b",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "During the 90° tilt operation, an operator observes air bubbles adhering to the underside of the leather disc in Cylinder B. What is the consequence of this artifact, and what corrective action is required?",
+      "answers": {
+        "a": "Trapped air prevents complete fluid contact across the surface, artificially underestimating V₁; the operator should tilt the apparatus smoothly and tap gently to release bubbles",
+        "b": "Air bubbles increase measured V₁ by dissolving rapidly into the leather matrix",
+        "c": "Air bubbles have no measurable effect because leather only absorbs liquid through its top grain",
+        "d": "Trapped bubbles generate high hydrostatic pressure that shatters the glass bulb"
+      },
+      "correctAnswer": "a",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "Why can an upper leather showing moderate static absorption (Q < 30%) in the Kubelka test still fail a dynamic water penetration test (such as ISO 5403 / Bally permeometer)?",
+      "answers": {
+        "a": "The Kubelka test measures passive capillary imbibition in an unbent state, whereas dynamic testing repeatedly flexes the leather, opening interconnected pores and pumping water through grain defects under cyclic pressure",
+        "b": "Dynamic testing exposes the sample to boiling organic solvents rather than distilled water",
+        "c": "Static water absorption measurements are conducted under total vacuum conditions",
+        "d": "Dynamic penetrometers test only the dry tensile strength of the collagen fibers"
+      },
+      "correctAnswer": "a",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "When reading the water absorption volume V₁ on the graduated capillary stem with the optical zoom viewer, which optical protocol must be followed to avoid parallax errors?",
+      "answers": {
+        "a": "Align the line of sight horizontally with the lowest point of the concave liquid meniscus",
+        "b": "Align the line of sight with the highest point of the upper liquid ring",
+        "c": "Take the mathematical average of the upper and lower meniscus boundaries viewed from a 45° angle",
+        "d": "Record the meniscus position while the apparatus is tilted at 45°"
+      },
+      "correctAnswer": "a",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "If the Kubelka static water absorption test is performed at an unconditioned ambient temperature of 32°C instead of the standard 20 ± 2°C, how will the measured absorption value be impacted and why?",
+      "answers": {
+        "a": "Water absorption will increase because water viscosity (η) and surface tension decrease with higher temperature, accelerating capillary suction through interfibrillar micropores",
+        "b": "Water absorption will decrease because collagen fibers permanently cross-link and seal all voids at 32°C",
+        "c": "Absorption remains unchanged because capillary uptake is mathematically independent of fluid viscosity",
+        "d": "The absorbed volume reading becomes zero due to thermal vapor expansion"
+      },
+      "correctAnswer": "a",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "Following completion of the 60-second drainage phase in the Kubelka method, what physical form does the retained water (V₁) inside the leather specimen predominantly represent?",
+      "answers": {
+        "a": "Solely a monomolecular chemisorbed layer on collagen amine end-groups",
+        "b": "A combination of capillary-condensed water held within interfibrillar voids and multi-layer hydrogen-bonded water hydrating the polar polypeptide backbones",
+        "c": "A gravitational puddle of loose surface water resting on the grain layer due to incomplete draining",
+        "d": "Microscopic ice crystals formed by endothermic desorption reactions"
+      },
+      "correctAnswer": "b",
+      "difficulty": "advanced"
+    }
+  ]
+}
+

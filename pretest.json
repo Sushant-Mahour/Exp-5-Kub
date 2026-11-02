@@ -1,0 +1,116 @@
+{
+  "version": 2.0,
+  "questions": [
+    {
+      "question": "Which international standard governs the determination of static water absorption in leather using the Kubelka apparatus, and what is its fundamental test principle?",
+      "answers": {
+        "a": "ISO 12947; measuring mechanical wear breakdown under multi-directional Lissajous friction",
+        "b": "ISO 2417 (IUP 7); measuring passive capillary liquid uptake and void filling under static immersion without dynamic flexing",
+        "c": "ISO 5402; evaluating cyclic flex endurance and finish cracking under high bending frequencies",
+        "d": "ISO 17235; measuring hardness and non-destructive indentation resistance"
+      },
+      "correctAnswer": "b",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "Why does ISO 2419 mandate preconditioning leather test specimens at 20 ± 2°C and 65 ± 2% RH for at least 24 hours prior to initial dry mass (m₁) determination?",
+      "answers": {
+        "a": "To dissolve residual salts and extractable vegetable tannins before water exposure",
+        "b": "To establish thermodynamic moisture sorption equilibrium and eliminate mass discrepancies caused by hygroscopic hysteresis",
+        "c": "To fully dehydrate the collagen matrix to 0.0% moisture content",
+        "d": "To thermally sterilize the leather specimen against bacterial decomposition during testing"
+      },
+      "correctAnswer": "b",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "According to ISO 2417, what is the required geometry and dimension of the test specimen cut for the Kubelka apparatus?",
+      "answers": {
+        "a": "Circular disc of 38.0 mm diameter",
+        "b": "Square specimen of 50.0 mm × 50.0 mm",
+        "c": "Circular disc of 70.0 mm diameter",
+        "d": "Circular disc of 140.0 mm diameter"
+      },
+      "correctAnswer": "c",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "In the standard Kubelka apparatus, what is the nominal volume of distilled water charged into lower Bulb A, and to which graduation line must the initial meniscus be adjusted?",
+      "answers": {
+        "a": "50 mL ± 1 mL; adjusted to the 10.0 mL mark",
+        "b": "75 mL ± 2 mL; fine-adjusted precisely to the 0.0 mL graduation line on the connecting neck",
+        "c": "100 mL ± 5 mL; adjusted to the 25.0 mL graduation line",
+        "d": "150 mL ± 5 mL; adjusted to the overflow spout"
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "At the macromolecular level, why does vegetable-tanned sole leather typically exhibit a significantly higher static water absorption capacity than chrome-tanned upper leather?",
+      "answers": {
+        "a": "Vegetable tannins strip the natural fatty acids, leaving completely hollow structural tubes",
+        "b": "Vegetable-tanned leather contains abundant hydrophilic polyphenolic hydroxyl groups that hydrogen-bond with water, combined with an open capillary network lacking hydrophobic fatliquors",
+        "c": "Chromium(III) complexes dissolve readily in water, forming a temporary impermeable precipitate over the grain",
+        "d": "Vegetable tanning creates non-polar covalent ether networks that repel hydration shells"
+      },
+      "correctAnswer": "b",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "How is the apparent volume (V₀) of a leather test specimen mathematically determined in the ISO 2417 procedure prior to calculating volume absorption (P)?",
+      "answers": {
+        "a": "By pycnometric liquid displacement using toluene as the nonswelling immersion liquid",
+        "b": "From the quotient of initial conditioned mass and apparent density: V₀ = m₁ / ρ",
+        "c": "By multiplying specimen surface area by micrometer thickness without conditioning",
+        "d": "By measuring buoyancy force via Archimedes principle in distilled water"
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Why must the Kubelka apparatus be tilted to exactly 90° (horizontal) to initiate the static immersion phase rather than remaining upright or inverted to 180°?",
+      "answers": {
+        "a": "A 90° rotation transfers the entire 75 mL of water into Cylinder B to fully submerge the specimen horizontally with minimal trapped air pockets",
+        "b": "At 90°, the internal chamber pressure drops to a vacuum, driving forced convective penetration",
+        "c": "At 90°, the graduated scale becomes parallel to gravity to eliminate optical refraction",
+        "d": "A 90° angle is required solely to keep the analytical balance from destabilizing"
+      },
+      "correctAnswer": "a",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "While 30 minutes is the standard single-point screening duration, which complete series of immersion durations does ISO 2417 designate for full kinetic absorption curves?",
+      "answers": {
+        "a": "1 min, 5 min, 10 min, and 15 min",
+        "b": "15 min, 30 min, 1 h, 2 h, and 24 h",
+        "c": "1 h, 6 h, 12 h, 24 h, and 48 h",
+        "d": "30 s, 60 s, 90 s, and 120 s"
+      },
+      "correctAnswer": "b",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "What experimental discrepancy occurs if non-distilled hard tap water containing polyvalent cations (Ca²⁺, Mg²⁺) is used in place of distilled water at 20 ± 2°C?",
+      "answers": {
+        "a": "Polyvalent ions alter liquid surface tension, bind to ionized collagen carboxyl groups, and alter pore wetting kinetics, producing non-reproducible absorption values",
+        "b": "Hard water evaporates spontaneously within the sealed glassware during the 30-minute immersion",
+        "c": "Dissolved calcium causes the borosilicate graduated glass tube to dissolve rapidly",
+        "d": "Cations induce spontaneous reverse capillary drainage from Cylinder B back into Bulb A during horizontal immersion"
+      },
+      "correctAnswer": "a",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "Why does ISO 2417 require a calibrated circular press punch die cutter rather than cutting the 70 mm test specimen with hand scissors or shears?",
+      "answers": {
+        "a": "Hand cutting irregularly crushes and seals peripheral cut fiber pores, causing erratic edge capillary absorption rates",
+        "b": "Shearing generates electrostatic charges that permanently repel polar water molecules",
+        "c": "Hand cutting chemically oxidizes vegetable tannins along the sample perimeter",
+        "d": "Die cutting is used exclusively to reduce specimen thickness"
+      },
+      "correctAnswer": "a",
+      "difficulty": "advanced"
+    }
+  ]
+}
+

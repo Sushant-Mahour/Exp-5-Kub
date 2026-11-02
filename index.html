@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Static Water Absorption (Kubelka Method) - ISO 2417 / IUP 7</title>
+<!-- Google Fonts: Open Sans & JetBrains Mono (Exp-7-App Theme) -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet"/>
+<!-- Stylesheet -->
+<link href="style.css" rel="stylesheet"/>
+</head>
+<body>
+
+<div class="simulation-container">
+  <!-- 1. Header Title Bar (Exp-7-App Classic Blue Theme) -->
+  <header class="app-header">
+    <div class="header-title">
+      <h1>Determination of Static Water Absorption (Kubelka Method)</h1>
+      <span class="subtitle">Standard ISO 2417 / IUP 7</span>
+    </div>
+    <span class="step-badge" id="current-step-badge">Step 1 of 8: Specimen Selection</span>
+  </header>
+
+  <!-- 2. Main Simulation Layout (2-Column Structure Fitted in Container) -->
+  <main class="app-main">
+    <!-- Left Column: Instruction & Step Progress Sidebar -->
+    <aside class="sidebar-panel">
+      <!-- Steps & Instructions Card -->
+      <div class="card steps-card">
+        <!-- Step Navigation dots & progress line -->
+        <div class="steps-progress-bar">
+          <div class="progress-fill" id="progress-line" style="width: 0%;"></div>
+          <div class="step-dot active" data-step="0" title="Specimen Selection"></div>
+          <div class="step-dot" data-step="1" title="Specimen Cutting"></div>
+          <div class="step-dot" data-step="2" title="Weighing Balance"></div>
+          <div class="step-dot" data-step="3" title="Water Preparation"></div>
+          <div class="step-dot" data-step="4" title="Specimen Assembly"></div>
+          <div class="step-dot" data-step="5" title="Static Immersion"></div>
+          <div class="step-dot" data-step="6" title="Draining & Reading"></div>
+          <div class="step-dot" data-step="7" title="Calculations & Report"></div>
+        </div>
+
+        <div class="step-details-container">
+          <h2 class="step-heading" id="step-title">Specimen Selection</h2>
+          <div class="step-instruction-content" id="step-instruction">
+            <!-- Dynamically populated by app.js -->
+          </div>
+        </div>
+
+        <!-- Sidebar Navigation Controls (Side me Back & Next) -->
+        <div class="sidebar-controls">
+          <button type="button" class="btn btn-prev" id="btn-prev" disabled>◀ Back</button>
+          <button type="button" class="btn btn-next" id="btn-next">Next Step ▶</button>
+        </div>
+      </div>
+
+      <!-- System Specifications / Experiment Parameters Card -->
+      <div class="card reference-card">
+        <h3 class="spec-heading">Experiment Parameters</h3>
+        <table class="spec-table">
+          <thead>
+            <tr>
+              <th>Parameter</th>
+              <th>Specification</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Standard</td>
+              <td>ISO 2417 / IUP 7</td>
+            </tr>
+            <tr>
+              <td>Test Reagent</td>
+              <td>Distilled Water</td>
+            </tr>
+            <tr>
+              <td>Specimen Diameter</td>
+              <td>&Oslash; 70.0 mm</td>
+            </tr>
+            <tr>
+              <td>Apparatus Volume</td>
+              <td>75 mL &plusmn; 2 mL</td>
+            </tr>
+            <tr>
+              <td>Scale Accuracy</td>
+              <td>&plusmn; 0.001 g / 0.1 mL</td>
+            </tr>
+            <tr>
+              <td>Temperature</td>
+              <td>20.0&deg;C &plusmn; 2.0&deg;C</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </aside>
+
+    <!-- Right Column: Interactive Lab Bench Viewport -->
+    <section class="stage-panel">
+      <div class="card stage-card">
+        <!-- Real-time Telemetry Metrics Bar -->
+        <div class="telemetry-bar">
+          <div class="telemetry-item">
+            <span class="tel-label">Sample:</span>
+            <span class="tel-value" id="val-leather-type">None</span>
+          </div>
+          <div class="telemetry-item">
+            <span class="tel-label">Dry Mass (m₁):</span>
+            <span class="tel-value" id="val-dry-mass">-- g</span>
+          </div>
+          <div class="telemetry-item">
+            <span class="tel-label">Water Level:</span>
+            <span class="tel-value" id="val-water-level">-- mL</span>
+          </div>
+          <div class="telemetry-item">
+            <span class="tel-label">Elapsed Time:</span>
+            <span class="tel-value" id="val-timer">00:00</span>
+          </div>
+        </div>
+
+        <!-- Viewport holding the 8 interactive screens -->
+        <div class="viewport" id="simulation-viewport">
+<!-- Step 0: Leather Specimen Selection -->
+<div class="sim-screen active" id="screen-step0">
+<div class="specimen-selection-container">
+<h3 class="font-tag">Leather Specimen Selection</h3>
+<p class="section-desc">Select a standardized test specimen to evaluate static water absorption under ISO 2417 (IUP 7) specifications.</p>
+<div class="leather-selection-grid">
+<!-- Specimen A: Chrome-Tanned Upper -->
+<div class="leather-card" id="card-chrome">
+<div class="leather-swatch chrome-swatch">
+<div class="leather-texture"></div>
+<div class="swatch-glare"></div>
+</div>
+<div class="leather-info">
+<h4 class="font-tag">Chrome-Tanned Leather</h4>
+<p class="desc">Soft, light blue-gray hue. Thickness: 1.4 mm. Standard choice for shoe upper leather. Treated for moderate water resistance.</p>
+<div class="tags">
+<span class="tag font-tag">Upper Leather</span>
+<span class="tag font-tag">1.4 mm</span>
+</div>
+</div>
+</div>
+<!-- Specimen B: Vegetable-Tanned Sole -->
+<div class="leather-card" id="card-vegetable">
+<div class="leather-swatch vegetable-swatch">
+<div class="leather-texture"></div>
+<div class="swatch-glare"></div>
+</div>
+<div class="leather-info">
+<h4 class="font-tag">Vegetable-Tanned Leather</h4>
+<p class="desc">Thick, dense, golden-tan color. Thickness: 4.0 mm. High mechanical strength for outsoles. Readily absorbs water unless coated.</p>
+<div class="tags">
+<span class="tag font-tag">Sole Leather</span>
+<span class="tag font-tag">4.0 mm</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Step 1: Cutting Specimen -->
+<!-- Step 2: Analytical Weighing Balance -->
+<!-- Step 2: Preparing the Kubelka Apparatus -->
+<!-- Step 3: Specimen Assembly -->
+<!-- Step 4: Tilting & Static Immersion -->
+<!-- Step 5: Draining & Final Reading -->
+<div class="sim-screen" id="screen-cutting">
+<div class="workspace-label">Specimen Preparation Station (ISO 2417 Press Cutter)</div>
+<div class="cutting-area">
+<div class="cutting-board-container" id="cutting-board-stage">
+<svg id="cutting-apparatus-svg" viewBox="0 0 460 300" width="460" height="300">
+  <defs>
+    <!-- Gradients for Die Cutter Metallic Finish -->
+    <linearGradient id="cutter-steel" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#334155" />
+      <stop offset="25%" stop-color="#94a3b8" />
+      <stop offset="50%" stop-color="#f8fafc" />
+      <stop offset="75%" stop-color="#94a3b8" />
+      <stop offset="100%" stop-color="#334155" />
+    </linearGradient>
+    <linearGradient id="cutter-blade" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#cbd5e1" />
+      <stop offset="35%" stop-color="#ffffff" />
+      <stop offset="70%" stop-color="#94a3b8" />
+      <stop offset="100%" stop-color="#475569" />
+    </linearGradient>
+    <linearGradient id="ram-shaft" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#334155" />
+      <stop offset="35%" stop-color="#cbd5e1" />
+      <stop offset="55%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#475569" />
+    </linearGradient>
+    <!-- Cutting Mat Grid Pattern -->
+    <pattern id="mat-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="1" />
+    </pattern>
+    <!-- Drop Shadow Filters -->
+    <filter id="leather-shadow" x="-5%" y="-5%" width="115%" height="115%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-opacity="0.2" />
+    </filter>
+    <filter id="disc-elevated-shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.4" />
+    </filter>
+    <filter id="die-shadow" x="-20%" y="-10%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#0f172a" flood-opacity="0.35" />
+    </filter>
+  </defs>
+
+  <!-- 1. Self-Healing Cutting Mat (Base) -->
+  <rect x="25" y="30" width="410" height="245" rx="8" fill="#1b382b" stroke="#2a523f" stroke-width="3" filter="url(#leather-shadow)" />
+  <rect x="30" y="35" width="400" height="235" fill="url(#mat-grid)" />
+  
+  <!-- Mat Grid Border Guides & Ruler Marks -->
+  <g stroke="rgba(255,255,255,0.18)" stroke-width="1">
+    <line x1="50" y1="35" x2="50" y2="270" />
+    <line x1="410" y1="35" x2="410" y2="270" />
+    <line x1="30" y1="55" x2="430" y2="55" />
+    <line x1="30" y1="250" x2="430" y2="250" />
+  </g>
+  <text x="60" y="49" fill="rgba(255,255,255,0.35)" font-family="JetBrains Mono, monospace" font-size="8.5" font-weight="600">HEAVY-DUTY DIE CUTTING MAT • ISO 2417 / IUP 7</text>
+
+  <!-- 2. Leather Sheet Layer -->
+  <g id="leather-sheet-group">
+    <!-- Main Leather Hide Piece -->
+    <rect id="cutting-leather-sheet" x="110" y="75" width="240" height="165" rx="6" fill="#577399" stroke="#334155" stroke-width="2" filter="url(#leather-shadow)" />
+
+    <!-- Target Cut Guideline (Dashed circle before cut) -->
+    <circle id="cutting-die-target" cx="230" cy="157" r="42" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-dasharray="6 4" />
+    <text id="target-guideline-text" x="230" y="161" fill="rgba(255,255,255,0.7)" font-family="JetBrains Mono, monospace" font-size="9" font-weight="700" text-anchor="middle">Ø 70 mm</text>
+
+    <!-- Cut Aperture / Hole (Shows once specimen disc is punched out) -->
+    <g id="cutting-die-aperture" style="display: none;">
+      <!-- Dark inner cutting mat visible through hole -->
+      <circle cx="230" cy="157" r="42" fill="#14261e" stroke="#0f172a" stroke-width="2.5" />
+      <!-- Inner bevel/shadow inside the cut edge -->
+      <circle cx="230" cy="157" r="41" fill="none" stroke="rgba(0,0,0,0.5)" stroke-width="2" />
+      <text x="230" y="161" fill="rgba(255,255,255,0.25)" font-family="JetBrains Mono, monospace" font-size="8.5" text-anchor="middle">HOLLOW CUT</text>
+    </g>
+
+    <!-- Extracted Circular Specimen Disc (Punched disc separating from sheet) -->
+    <g id="cutting-die-disc" style="display: none; cursor: pointer;">
+      <circle id="specimen-disc-circle" cx="230" cy="157" r="42" fill="#577399" stroke="#1475e4" stroke-width="2.5" filter="url(#disc-elevated-shadow)" />
+      <!-- Dimension Line & Diameter Label on Extracted Disc -->
+      <line x1="192" y1="157" x2="268" y2="157" stroke="#ffffff" stroke-width="1.5" stroke-dasharray="3 2" />
+      <circle cx="192" cy="157" r="2.5" fill="#ffffff" />
+      <circle cx="268" cy="157" r="2.5" fill="#ffffff" />
+      <rect x="206" y="148" width="48" height="18" rx="4" fill="#003080" />
+      <text x="230" y="161" fill="#ffffff" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700" text-anchor="middle">Ø 70 mm</text>
+    </g>
+  </g>
+
+  <!-- 3. Die Cutter Tool Assembly (Descends down onto leather when clicked) -->
+  <g id="press-cutter" class="press-cutter-tool" filter="url(#die-shadow)" title="Click to press cutter and stamp out 70 mm specimen">
+    <!-- Top Press Arbor Shaft (Chrome piston ram) -->
+    <rect x="221" y="2" width="18" height="42" fill="url(#ram-shaft)" stroke="#334155" stroke-width="1" />
+    <rect x="215" y="42" width="30" height="7" rx="2" fill="#1e293b" />
+
+    <!-- Knurled Collar Ring -->
+    <rect x="198" y="49" width="64" height="15" rx="2" fill="url(#cutter-steel)" stroke="#334155" stroke-width="1.5" />
+
+    <!-- Cylindrical Die Body (84px width = 70 mm standard scale) -->
+    <rect x="188" y="64" width="84" height="28" rx="2" fill="url(#cutter-steel)" stroke="#334155" stroke-width="2" />
+
+    <!-- Technical Marking Plate -->
+    <rect x="196" y="70" width="68" height="15" rx="3" fill="#0f172a" />
+    <text x="230" y="81" fill="#38bdf8" font-family="JetBrains Mono, monospace" font-size="8.5" font-weight="700" text-anchor="middle">ISO 2417 • Ø70</text>
+
+    <!-- Beveled Hardened Tool Steel Blade Ring -->
+    <polygon points="188,92 272,92 270,102 190,102" fill="url(#cutter-blade)" stroke="#475569" stroke-width="1.5" />
+    <!-- Razor-sharp cutting blade edge line -->
+    <line x1="190" y1="102" x2="270" y2="102" stroke="#ffffff" stroke-width="2" />
+
+    <!-- Hover Click Prompt Tag -->
+    <g id="cutter-prompt-pill" opacity="0.95">
+      <rect x="175" y="22" width="110" height="18" rx="9" fill="#0064c8" stroke="#ffffff" stroke-width="1" />
+      <text x="230" y="34.5" fill="#ffffff" font-family="Open Sans, sans-serif" font-size="9" font-weight="700" text-anchor="middle">▶ Click to Cut 70mm</text>
+    </g>
+  </g>
+
+  <!-- 4. Specimen Cut Confirmation Badge (Bottom of stage) -->
+  <g id="specimen-cut-badge" style="display: none;">
+    <rect x="125" y="248" width="210" height="24" rx="12" fill="#e8f0fe" stroke="#1475e4" stroke-width="1.5" />
+    <text x="230" y="264" fill="#003080" font-family="Open Sans, sans-serif" font-size="11" font-weight="700" text-anchor="middle">✓ Standard Ø 70.0 mm Disc Cut</text>
+  </g>
+</svg>
+</div>
+<div class="cutting-controls">
+<button class="btn accent-btn" id="btn-cut-specimen">Press Cutter (Cut 70mm)</button>
+<div class="cutting-status" id="cutting-status-msg">Position the cutter and press to stamp out the circular specimen.</div>
+</div>
+</div>
+</div><div class="sim-screen" id="screen-step1">
+<div class="workspace-label">Weighing Station (Draft Shield Balance)</div>
+<div class="weighing-area">
+<!-- Specimen box with grains -->
+<div class="leather-specimen-container" id="weighing-specimen-container">
+<div class="interactive-leather-specimen" draggable="true" id="draggable-leather" title="Drag onto the analytical balance scale">
+<div class="leather-grain-pattern"></div>
+<span class="leather-label">Specimen</span>
+<div class="specimen-shadow"></div>
+</div>
+</div>
+<!-- Analytical Balance SVG with Interactive Draft Shield -->
+<div class="analytical-balance-container">
+<svg height="280" id="balance-svg" viewbox="0 0 300 350" width="240">
+<defs>
+<!-- Realistic Leather Grain Noise Filter -->
+<filter height="100%" id="leather-noise" width="100%" x="0%" y="0%">
+<feturbulence basefrequency="0.75" numoctaves="3" result="noise" type="fractalNoise"></feturbulence>
+<fecolormatrix result="coloredNoise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.16 0"></fecolormatrix>
+<feblend in="SourceGraphic" in2="coloredNoise" mode="multiply"></feblend>
+</filter>
+<marker id="arrowhead-start" markerheight="6" markerwidth="6" orient="auto" refx="0" refy="3">
+<polygon fill="#94a3b8" points="6 0, 0 3, 6 6"></polygon>
+</marker>
+<marker id="arrowhead" markerheight="6" markerwidth="6" orient="auto" refx="6" refy="3">
+<polygon fill="#94a3b8" points="0 0, 6 3, 0 6"></polygon>
+</marker>
+<!-- Brushed metal gradient -->
+<lineargradient id="metal-grad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#475569"></stop>
+<stop offset="50%" stop-color="#64748b"></stop>
+<stop offset="100%" stop-color="#334155"></stop>
+</lineargradient>
+<lineargradient id="pan-grad" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#cbd5e1"></stop>
+<stop offset="50%" stop-color="#94a3b8"></stop>
+<stop offset="100%" stop-color="#475569"></stop>
+</lineargradient>
+<!-- LED glow filter -->
+<filter id="glow-led">
+<fegaussianblur result="coloredBlur" stddeviation="2"></fegaussianblur>
+<femerge>
+<femergenode in="coloredBlur"></femergenode>
+<femergenode in="SourceGraphic"></femergenode>
+</femerge>
+</filter>
+</defs>
+<!-- Balance Casing Base -->
+<rect fill="url(#metal-grad)" height="65" rx="12" stroke="#334155" stroke-width="2" width="270" x="15" y="270"></rect>
+<!-- Level feet -->
+<rect fill="#0f172a" height="10" rx="3" width="25" x="35" y="335"></rect>
+<rect fill="#0f172a" height="10" rx="3" width="25" x="240" y="335"></rect>
+<!-- Casing top border bevel -->
+<rect fill="#cbd5e1" height="6" rx="2" stroke="none" width="260" x="20" y="268"></rect>
+<!-- Brand model print -->
+<text fill="#475569" font-family="Arial, sans-serif" font-size="8" font-weight="bold" letter-spacing="1" text-anchor="middle" x="150" y="280">ISO 2417 BALANCE</text>
+<!-- Glass Chamber Enclosure Outer Frame -->
+<rect fill="none" height="210" rx="6" stroke="#64748b" stroke-width="4" width="230" x="35" y="60"></rect>
+<rect fill="rgba(148, 163, 184, 0.03)" height="200" stroke="rgba(255,255,255,0.05)" stroke-width="1" width="220" x="40" y="65"></rect>
+<!-- Inner back panel grid/lines for realistic glass depth -->
+<line stroke="rgba(148, 163, 184, 0.15)" stroke-dasharray="3,3" stroke-width="1" x1="150" x2="150" y1="65" y2="265"></line>
+<!-- Pan Support Column -->
+<rect fill="url(#pan-grad)" height="70" stroke="#475569" stroke-width="1" width="20" x="140" y="200"></rect>
+<!-- Weighing Pan -->
+<ellipse cx="150" cy="200" fill="url(#pan-grad)" rx="65" ry="12" stroke="#475569" stroke-width="2"></ellipse>
+<!-- Concentric Grooves for Realistic Pan Texturing -->
+<ellipse cx="150" cy="200" fill="none" rx="52" ry="9" stroke="rgba(255, 255, 255, 0.25)" stroke-width="1"></ellipse>
+<ellipse cx="150" cy="200" fill="none" rx="38" ry="6" stroke="rgba(255, 255, 255, 0.25)" stroke-width="1"></ellipse>
+<ellipse cx="150" cy="200" fill="none" rx="24" ry="3.5" stroke="rgba(255, 255, 255, 0.25)" stroke-width="0.75"></ellipse>
+<ellipse cx="150" cy="200" fill="none" rx="10" ry="1.5" stroke="rgba(255, 255, 255, 0.25)" stroke-width="0.5"></ellipse>
+<!-- SVG Placed Specimen (Initially Hidden) -->
+<ellipse cx="150" cy="196" fill="#d97706" filter="url(#leather-noise)" id="svg-placed-specimen" rx="45" ry="9" stroke="#b45309" stroke-width="1.5" style="display: none; pointer-events: none;"></ellipse>
+<!-- Spirit Level Bubble Indicator -->
+<g transform="translate(248, 283)">
+<circle cx="0" cy="0" fill="#cbd5e1" r="7" stroke="#475569" stroke-width="1"></circle>
+<circle cx="0" cy="0" fill="none" r="4.5" stroke="#94a3b8" stroke-width="0.75"></circle>
+<circle cx="-0.8" cy="-0.8" fill="#22c55e" r="2"></circle>
+</g>
+<text fill="#64748b" font-family="Arial, sans-serif" font-size="6" font-weight="bold" text-anchor="middle" x="248" y="295">LEVEL</text>
+<!-- Dynamic Sliding Glass Door / Draft Shield -->
+<g class="balance-door-transition" cursor="pointer" id="balance-door" title="Click to open/close draft shield">
+<!-- Semi-transparent glass doors -->
+<rect fill="rgba(6, 182, 212, 0.05)" height="194" rx="4" stroke="rgba(6, 182, 212, 0.2)" stroke-width="1" width="216" x="42" y="68"></rect>
+<!-- Metal handle -->
+<rect fill="#94a3b8" height="8" rx="2" stroke="#334155" width="20" x="140" y="74"></rect>
+<line stroke="rgba(255,255,255,0.2)" stroke-width="1" x1="50" x2="250" y1="78" y2="78"></line>
+<line stroke="rgba(255,255,255,0.2)" stroke-width="1" x1="50" x2="250" y1="252" y2="252"></line>
+<!-- Glass reflection sheen -->
+<path d="M 45 72 L 95 258" stroke="rgba(255,255,255,0.15)" stroke-width="2"></path>
+</g>
+<!-- Display screen border -->
+<rect fill="#020617" height="38" rx="6" stroke="#334155" stroke-width="2" width="145" x="55" y="288"></rect>
+<!-- Backlight LED panel glow -->
+<rect fill="#06231c" height="32" opacity="0.9" rx="4" width="139" x="58" y="291"></rect>
+<!-- Glowing display text -->
+<text fill="#10b981" filter="url(#glow-led)" font-family="'JetBrains Mono', monospace" font-size="19" font-weight="bold" id="balance-weight-display" text-anchor="middle" x="135" y="313">0.000 g</text>
+<!-- Status indicators on screen -->
+<text fill="#10b981" font-family="Arial, sans-serif" font-size="7" font-weight="bold" opacity="0.6" x="64" y="301">NET</text>
+<text fill="#10b981" font-family="Arial, sans-serif" font-size="8" font-weight="bold" opacity="0.8" x="64" y="318">✓</text> <!-- Stable checkmark indicator -->
+<!-- Control Buttons Panel (Membrane Keypad) -->
+<!-- TARE Button -->
+<g cursor="pointer" id="btn-tare-pad">
+<rect fill="#3b82f6" height="18" rx="3" stroke="#1d4ed8" stroke-width="1" width="28" x="208" y="303"></rect>
+<text fill="#f8fafc" font-family="Arial, sans-serif" font-size="7" font-weight="bold" text-anchor="middle" x="222" y="315">TARE</text>
+</g>
+<!-- ZERO Button -->
+<g cursor="pointer">
+<rect fill="#475569" height="18" rx="3" stroke="#334155" stroke-width="1" width="28" x="242" y="303"></rect>
+<text fill="#f8fafc" font-family="Arial, sans-serif" font-size="7" font-weight="bold" text-anchor="middle" x="256" y="315">ZERO</text>
+</g>
+</svg>
+<div class="scale-status-lbl" id="door-status-indicator">Shield: <span class="state-closed">Closed</span></div>
+<div class="scale-guidance">Open the glass draft shield, tare, weigh the sample, and close the shield to stabilize.</div>
+<button class="btn accent-btn" id="btn-auto-weigh">Weigh Specimen</button>
+</div>
+</div>
+</div><div class="sim-screen" id="screen-step2">
+<div class="workspace-label">Water Preparation Station (Pipette Adjust)</div>
+<div class="water-area">
+<div class="water-pouring-wrapper">
+<!-- Water Beaker SVG -->
+<div class="pouring-beaker-container" id="beaker-container">
+<svg height="150" id="beaker-svg" viewbox="0 0 150 180" width="130">
+<!-- Beaker body -->
+<path d="M30,20 L30,160 Q30,170 40,170 L110,170 Q120,170 120,160 L120,20 L125,20 L125,12 L25,12 L25,20 Z" fill="rgba(255,255,255,0.03)" stroke="#cbd5e1" stroke-width="3"></path>
+<path d="M32,60 L32,162 Q32,168 40,168 L110,168 Q118,168 118,162 L118,60 Z" fill="rgba(56, 189, 248, 0.45)" id="beaker-water"></path>
+<!-- Glass shine highlight -->
+<path d="M 110 30 L 110 150" stroke="rgba(255,255,255,0.15)" stroke-linecap="round" stroke-width="2"></path>
+<line stroke="#64748b" stroke-width="2" x1="30" x2="48" y1="60" y2="60"></line>
+<text fill="#64748b" font-family="Inter" font-size="10" x="54" y="64">100</text>
+<line stroke="#64748b" stroke-width="2" x1="30" x2="45" y1="85" y2="85"></line>
+<text fill="#64748b" font-family="Inter" font-size="10" x="50" y="89">75</text>
+<line stroke="#64748b" stroke-width="2" x1="30" x2="45" y1="110" y2="110"></line>
+<text fill="#64748b" font-family="Inter" font-size="10" x="50" y="114">50</text>
+<line stroke="#64748b" stroke-width="2" x1="30" x2="45" y1="135" y2="135"></line>
+<text fill="#64748b" font-family="Inter" font-size="10" x="50" y="139">25</text>
+</svg>
+<div class="beaker-label">Distilled Water</div>
+</div>
+<!-- Flow stream (hidden) -->
+<svg class="pour-stream-hidden" height="200" id="pour-stream-svg" style="display: none !important;" viewbox="0 0 100 200" width="100"></svg>
+<!-- Apparatus for water prep -->
+<div class="kubelka-setup-container" id="kubelka-prep-container">
+<svg height="360" id="kubelka-insert-svg" viewbox="0 0 350 350" width="360">
+<defs>
+<!-- Realistic Leather Grain Noise Filter -->
+<filter height="100%" id="leather-noise" width="100%" x="0%" y="0%">
+<feturbulence basefrequency="0.75" numoctaves="3" result="noise" type="fractalNoise"></feturbulence>
+<fecolormatrix result="coloredNoise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.16 0"></fecolormatrix>
+<feblend in="SourceGraphic" in2="coloredNoise" mode="multiply"></feblend>
+</filter>
+<clippath id="glass-interior-step2">
+<path d="M 255 120 L 255 160 Q 255 180 235 180 L 95 180 A 30 30 0 1 0 95 192 L 235 192 Q 255 192 255 212 L 255 220 L 345 220 L 345 120 Z"></path>
+</clippath>
+</defs>
+<!-- Rotatable Apparatus (Rotated -90 for filling) -->
+<g id="kubelka-device-step2" transform="rotate(-90, 220, 150)">
+<!-- Water Physics Layer -->
+<g clip-path="url(#glass-interior-step2)">
+<g id="water-physics-step2" transform="rotate(90, 220, 150)">
+<!-- Y=400 means empty. Will animate to Y=205 for filling -->
+<rect fill="rgba(56, 189, 248, 0.45)" height="400" id="prep-water-rect" width="500" x="-100" y="400"></rect>
+</g>
+</g>
+<!-- Glass Outline -->
+<path d="M 255 120 L 255 160 Q 255 180 235 180 L 95 180 A 30 30 0 1 0 95 192 L 235 192 Q 255 192 255 212 L 255 220 L 345 220 L 345 120" fill="none" stroke="#cbd5e1" stroke-width="3"></path>
+<path d="M 255 120 L 255 160 Q 255 180 235 180 L 95 180 A 30 30 0 1 0 95 192 L 235 192 Q 255 192 255 212 L 255 220 L 345 220 L 345 120 Z" fill="rgba(255, 255, 255, 0.05)" stroke="none"></path>
+<!-- Graduations -->
+<g stroke="rgba(255,255,255,0.6)" stroke-width="1.5">
+<line x1="205" y1="180" x2="205" y2="190"></line>
+<line x1="200" y1="180" x2="200" y2="185"></line>
+<line x1="195" y1="180" x2="195" y2="185"></line>
+<line x1="190" y1="180" x2="190" y2="185"></line>
+<line x1="185" y1="180" x2="185" y2="185"></line>
+<line x1="180" y1="180" x2="180" y2="190"></line>
+<line x1="175" y1="180" x2="175" y2="185"></line>
+<line x1="170" y1="180" x2="170" y2="185"></line>
+<line x1="165" y1="180" x2="165" y2="185"></line>
+<line x1="160" y1="180" x2="160" y2="185"></line>
+<line x1="155" y1="180" x2="155" y2="190"></line>
+<line x1="150" y1="180" x2="150" y2="185"></line>
+<line x1="145" y1="180" x2="145" y2="185"></line>
+<line x1="140" y1="180" x2="140" y2="185"></line>
+<line x1="135" y1="180" x2="135" y2="185"></line>
+<line x1="130" y1="180" x2="130" y2="190"></line>
+</g>
+<text x="205" y="205" fill="rgba(255,255,255,0.8)" font-family="Inter" font-size="12" text-anchor="middle" transform="rotate(90, 205, 205)">0</text>
+<text x="130" y="205" fill="rgba(255,255,255,0.8)" font-family="Inter" font-size="12" text-anchor="middle" transform="rotate(90, 130, 205)">15 ml</text>
+<text x="65" y="195" fill="rgba(255,255,255,0.8)" font-family="Inter" font-size="12" text-anchor="middle" transform="rotate(90, 65, 195)">60 ml</text>
+<!-- Glass highlights -->
+
+
+<!-- Specimen (Hidden in Step 2) -->
+<g id="sim-specimen-group-step2" style="display: none;">
+<!-- Overhanging black rubber base -->
+<path d="M 248 114 Q 248 122 255 122 L 345 122 Q 352 122 352 114 Z" fill="#111827"></path>
+<!-- Upper dark grey block -->
+<rect fill="#374151" height="12" rx="2" width="96" x="252" y="102"></rect>
+<!-- Black dot -->
+<circle cx="265" cy="108" fill="#111827" r="2.5"></circle>
+<!-- White wire scribble on top -->
+
+<line stroke="#a0aec0" stroke-width="3" x1="300" x2="300" y1="80" y2="214"></line>
+<rect fill="#92400e" filter="url(#leather-noise)" height="6" rx="1" stroke="#78350f" stroke-width="1" width="70" x="265" y="214"></rect>
+</g>
+</g>
+</svg>
+</div>
+</div>
+<div class="water-controls">
+<button class="btn accent-btn" id="btn-pour-water">Pour Distilled Water</button>
+<button class="btn primary" id="btn-adjust-water" style="display:none;">Fine Adjust to 0.0 mL</button>
+</div>
+</div>
+</div><div class="sim-screen" id="screen-step3">
+<div class="workspace-label">Specimen Assembly Station</div>
+<div class="insertion-area">
+<!-- Specimen container -->
+<div class="leather-insert-container" id="insert-specimen-box">
+<div class="interactive-leather-specimen inline" id="insert-leather" title="Click to mount specimen into cylinder">
+<div class="leather-grain-pattern"></div>
+<span class="leather-label">Specimen</span>
+<div class="specimen-shadow"></div>
+</div>
+<div class="click-indicator">
+  <svg class="indicator-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 5v14M19 12l-7 7-7-7"></path>
+  </svg>
+  <span>Mount specimen into cylinder</span>
+</div>
+</div>
+<!-- Kubelka with stopper ready -->
+<div class="kubelka-insert-container" id="kubelka-insert-wrapper">
+<svg height="360" id="step3-apparatus-svg" viewbox="0 0 350 350" width="360">
+<defs>
+<!-- Realistic Leather Grain Noise Filter -->
+<filter height="100%" id="leather-noise" width="100%" x="0%" y="0%">
+<feturbulence basefrequency="0.75" numoctaves="3" result="noise" type="fractalNoise"></feturbulence>
+<fecolormatrix result="coloredNoise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.16 0"></fecolormatrix>
+<feblend in="SourceGraphic" in2="coloredNoise" mode="multiply"></feblend>
+</filter>
+<marker id="arrowhead-start" markerheight="6" markerwidth="6" orient="auto" refx="0" refy="3">
+<polygon fill="#94a3b8" points="6 0, 0 3, 6 6"></polygon>
+</marker>
+<marker id="arrowhead" markerheight="6" markerwidth="6" orient="auto" refx="6" refy="3">
+<polygon fill="#94a3b8" points="0 0, 6 3, 0 6"></polygon>
+</marker>
+<clippath id="glass-interior-step3">
+<path d="M 255 120 L 255 160 Q 255 180 235 180 L 95 180 A 30 30 0 1 0 95 192 L 235 192 Q 255 192 255 212 L 255 220 L 345 220 L 345 120 Z"></path>
+</clippath>
+</defs>
+<!-- Rotatable Apparatus (Rotated -90 for filling/insertion) -->
+<g id="kubelka-device-step3" transform="rotate(-90, 220, 150)">
+<!-- Water Physics Layer -->
+<g clip-path="url(#glass-interior-step3)">
+<g id="water-physics-step3" transform="rotate(90, 220, 150)">
+<!-- Y=125 means filled to zero mark -->
+<rect fill="rgba(56, 189, 248, 0.45)" height="400" id="insert-water-rect" width="500" x="-100" y="165"></rect>
+</g>
+</g>
+<!-- Glass Outline -->
+<path d="M 255 120 L 255 160 Q 255 180 235 180 L 95 180 A 30 30 0 1 0 95 192 L 235 192 Q 255 192 255 212 L 255 220 L 345 220 L 345 120" fill="none" stroke="#cbd5e1" stroke-width="3"></path>
+<path d="M 255 120 L 255 160 Q 255 180 235 180 L 95 180 A 30 30 0 1 0 95 192 L 235 192 Q 255 192 255 212 L 255 220 L 345 220 L 345 120 Z" fill="rgba(255, 255, 255, 0.05)" stroke="none"></path>
+<!-- Graduations -->
+<g stroke="rgba(255,255,255,0.6)" stroke-width="1.5">
+<line x1="205" y1="180" x2="205" y2="190"></line>
+<line x1="200" y1="180" x2="200" y2="185"></line>
+<line x1="195" y1="180" x2="195" y2="185"></line>
+<line x1="190" y1="180" x2="190" y2="185"></line>
+<line x1="185" y1="180" x2="185" y2="185"></line>
+<line x1="180" y1="180" x2="180" y2="190"></line>
+<line x1="175" y1="180" x2="175" y2="185"></line>
+<line x1="170" y1="180" x2="170" y2="185"></line>
+<line x1="165" y1="180" x2="165" y2="185"></line>
+<line x1="160" y1="180" x2="160" y2="185"></line>
+<line x1="155" y1="180" x2="155" y2="190"></line>
+<line x1="150" y1="180" x2="150" y2="185"></line>
+<line x1="145" y1="180" x2="145" y2="185"></line>
+<line x1="140" y1="180" x2="140" y2="185"></line>
+<line x1="135" y1="180" x2="135" y2="185"></line>
+<line x1="130" y1="180" x2="130" y2="190"></line>
+</g>
+<text x="205" y="205" fill="rgba(255,255,255,0.8)" font-family="Inter" font-size="12" text-anchor="middle" transform="rotate(90, 205, 205)">0</text>
+<text x="130" y="205" fill="rgba(255,255,255,0.8)" font-family="Inter" font-size="12" text-anchor="middle" transform="rotate(90, 130, 205)">15 ml</text>
+<text x="65" y="195" fill="rgba(255,255,255,0.8)" font-family="Inter" font-size="12" text-anchor="middle" transform="rotate(90, 65, 195)">60 ml</text>
+<!-- Glass highlights -->
+
+
+<!-- Specimen Assembly with Rubber Stopper sliding -->
+<g id="inserted-leather-svg" style="opacity: 0; transform: translateY(-60px); transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);">
+<!-- Overhanging black rubber base -->
+<path d="M 248 114 Q 248 122 255 122 L 345 122 Q 352 122 352 114 Z" fill="#111827"></path>
+<!-- Upper dark grey block -->
+<rect fill="#374151" height="12" rx="2" width="96" x="252" y="102"></rect>
+<!-- Black dot -->
+<circle cx="265" cy="108" fill="#111827" r="2.5"></circle>
+<!-- White wire scribble on top -->
+
+<line stroke="#a0aec0" stroke-width="3" x1="300" x2="300" y1="80" y2="214"></line>
+<rect fill="#d97706" filter="url(#leather-noise)" height="6" id="inserted-leather-specimen" rx="1" stroke="#b45309" stroke-width="1" width="70" x="265" y="214"></rect>
+</g>
+</g>
+</svg>
+</div>
+</div>
+</div><div class="sim-screen" id="screen-step4">
+<div class="workspace-label">Immersion Station (Rotation Physics)</div>
+<div class="immersion-area">
+<!-- Pivot Box Container -->
+<div class="kubelka-pivot-assembly" id="pivot-assembly">
+<div class="kubelka-rotatable" id="kubelka-device-wrapper">
+<svg height="450" id="main-sim-apparatus" viewbox="0 0 350 350" width="450">
+<defs>
+<!-- Realistic Leather Grain Noise Filter -->
+<filter height="100%" id="leather-noise" width="100%" x="0%" y="0%">
+<feturbulence basefrequency="0.75" numoctaves="3" result="noise" type="fractalNoise"></feturbulence>
+<fecolormatrix result="coloredNoise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.16 0"></fecolormatrix>
+<feblend in="SourceGraphic" in2="coloredNoise" mode="multiply"></feblend>
+</filter>
+<clippath id="glass-interior-step4">
+<path d="M 255 120 L 255 160 Q 255 180 235 180 L 95 180 A 30 30 0 1 0 95 192 L 235 192 Q 255 192 255 212 L 255 220 L 345 220 L 345 120 Z"></path>
+</clippath>
+</defs>
+<!-- Rotatable Apparatus (Starts at -90, rotates to 0) -->
+<g id="kubelka-device-step4" transform="rotate(-90, 220, 150)">
+<!-- Water Physics Layer -->
+<g clip-path="url(#glass-interior-step4)">
+<g id="water-physics-step4" transform="rotate(90, 220, 150)">
+<!-- Y=205 for filling state. Animate to 185 for immersion. -->
+<rect fill="rgba(56, 189, 248, 0.45)" height="400" id="tilt-water-rect" width="500" x="-100" y="165"></rect>
+</g>
+</g>
+<!-- Glass Outline -->
+<path d="M 255 120 L 255 160 Q 255 180 235 180 L 95 180 A 30 30 0 1 0 95 192 L 235 192 Q 255 192 255 212 L 255 220 L 345 220 L 345 120" fill="none" stroke="#cbd5e1" stroke-width="3"></path>
+<path d="M 255 120 L 255 160 Q 255 180 235 180 L 95 180 A 30 30 0 1 0 95 192 L 235 192 Q 255 192 255 212 L 255 220 L 345 220 L 345 120 Z" fill="rgba(255, 255, 255, 0.05)" stroke="none"></path>
+<!-- Graduations -->
+<g stroke="rgba(255,255,255,0.6)" stroke-width="1.5">
+<line x1="205" y1="180" x2="205" y2="190"></line>
+<line x1="200" y1="180" x2="200" y2="185"></line>
+<line x1="195" y1="180" x2="195" y2="185"></line>
+<line x1="190" y1="180" x2="190" y2="185"></line>
+<line x1="185" y1="180" x2="185" y2="185"></line>
+<line x1="180" y1="180" x2="180" y2="190"></line>
+<line x1="175" y1="180" x2="175" y2="185"></line>
+<line x1="170" y1="180" x2="170" y2="185"></line>
+<line x1="165" y1="180" x2="165" y2="185"></line>
+<line x1="160" y1="180" x2="160" y2="185"></line>
+<line x1="155" y1="180" x2="155" y2="190"></line>
+<line x1="150" y1="180" x2="150" y2="185"></line>
+<line x1="145" y1="180" x2="145" y2="185"></line>
+<line x1="140" y1="180" x2="140" y2="185"></line>
+<line x1="135" y1="180" x2="135" y2="185"></line>
+<line x1="130" y1="180" x2="130" y2="190"></line>
+</g>
+<text x="205" y="205" fill="rgba(255,255,255,0.8)" font-family="Inter" font-size="12" text-anchor="middle" transform="rotate(90, 205, 205)">0</text>
+<text x="130" y="205" fill="rgba(255,255,255,0.8)" font-family="Inter" font-size="12" text-anchor="middle" transform="rotate(90, 130, 205)">15 ml</text>
+<text x="65" y="195" fill="rgba(255,255,255,0.8)" font-family="Inter" font-size="12" text-anchor="middle" transform="rotate(90, 65, 195)">60 ml</text>
+<!-- Glass highlights -->
+
+
+<!-- Specimen Assembly -->
+<g id="sim-specimen-group">
+<!-- Overhanging black rubber base -->
+<path d="M 248 114 Q 248 122 255 122 L 345 122 Q 352 122 352 114 Z" fill="#111827"></path>
+<!-- Upper dark grey block -->
+<rect fill="#374151" height="12" rx="2" width="96" x="252" y="102"></rect>
+<!-- Black dot -->
+<circle cx="265" cy="108" fill="#111827" r="2.5"></circle>
+<!-- White wire scribble on top -->
+
+<line stroke="#a0aec0" stroke-width="3" x1="300" x2="300" y1="80" y2="214"></line>
+<!-- The ellipse is used to change color when wet -->
+<rect fill="#d97706" filter="url(#leather-noise)" height="6" id="tilt-specimen-ellipse" rx="1" stroke="#b45309" stroke-width="1" width="70" x="265" y="214"></rect>
+</g>
+</g>
+</svg>
+</div>
+</div>
+<!-- Rotation & Timer panel -->
+<div class="immersion-controls-panel">
+<div class="control-row">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+<label class="font-tag" for="tilt-slider">TILT CONTROL (0° - 90°)</label>
+<button class="btn secondary btn-sm" id="btn-auto-tilt" style="padding: 4px 8px; font-size: 11px; border-radius: 6px;">Tilt to 90°</button>
+</div>
+<input id="tilt-slider" max="90" min="0" type="range" value="0"/>
+<div class="slider-ticks">
+<span>0° (Upright)</span>
+<span>45°</span>
+<span>90° (Submerge)</span>
+</div>
+</div>
+<div class="timer-box-container">
+<div class="timer-display" id="immersion-timer">30:00</div>
+<div style="display: flex; gap: 8px; width: 100%;">
+<button class="btn accent-btn" disabled="" id="btn-start-immersion" style="flex: 1;">Start Immersion (30m)</button>
+<button class="btn secondary" id="btn-speed-immersion" style="display: none; padding: 12px 16px;" title="Increase speed to 10x">10x Speed</button>
+</div>
+</div>
+<div class="tilt-status-message" id="tilt-message">
+                    Tilt the apparatus to 90 degrees to submerge the leather in water.
+                  </div>
+</div>
+</div>
+</div><div class="sim-screen" id="screen-step5">
+<div class="workspace-label">Draining Station (60s Drainage Stand)</div>
+<div class="draining-area">
+<!-- Main drainage apparatus -->
+<div class="drain-apparatus-wrapper">
+<svg height="450" id="drain-apparatus-svg" viewbox="0 0 350 350" width="450">
+<defs>
+<!-- Realistic Leather Grain Noise Filter -->
+<filter height="100%" id="leather-noise" width="100%" x="0%" y="0%">
+<feturbulence basefrequency="0.75" numoctaves="3" result="noise" type="fractalNoise"></feturbulence>
+<fecolormatrix result="coloredNoise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.16 0"></fecolormatrix>
+<feblend in="SourceGraphic" in2="coloredNoise" mode="multiply"></feblend>
+</filter>
+<marker id="arrowhead-start" markerheight="6" markerwidth="6" orient="auto" refx="0" refy="3">
+<polygon fill="#94a3b8" points="6 0, 0 3, 6 6"></polygon>
+</marker>
+<marker id="arrowhead" markerheight="6" markerwidth="6" orient="auto" refx="6" refy="3">
+<polygon fill="#94a3b8" points="0 0, 6 3, 0 6"></polygon>
+</marker>
+<clippath id="glass-interior-step5">
+<path d="M 255 120 L 255 160 Q 255 180 235 180 L 95 180 A 30 30 0 1 0 95 192 L 235 192 Q 255 192 255 212 L 255 220 L 345 220 L 345 120 Z"></path>
+</clippath>
+</defs>
+<!-- Rotatable Apparatus (Rotated -90 for draining) -->
+<g id="kubelka-device-step5" transform="rotate(-90, 220, 150)">
+<!-- Water Physics Layer -->
+<g clip-path="url(#glass-interior-step5)">
+<g id="water-physics-step5" transform="rotate(90, 220, 150)">
+<!-- Y=210 means slightly lower than 205, reflecting absorbed volume -->
+<rect fill="rgba(56, 189, 248, 0.45)" height="400" id="drain-water-rect" width="500" x="-100" y="165"></rect>
+</g>
+</g>
+<!-- Glass Outline -->
+<path d="M 255 120 L 255 160 Q 255 180 235 180 L 95 180 A 30 30 0 1 0 95 192 L 235 192 Q 255 192 255 212 L 255 220 L 345 220 L 345 120" fill="none" stroke="#cbd5e1" stroke-width="3"></path>
+<path d="M 255 120 L 255 160 Q 255 180 235 180 L 95 180 A 30 30 0 1 0 95 192 L 235 192 Q 255 192 255 212 L 255 220 L 345 220 L 345 120 Z" fill="rgba(255, 255, 255, 0.05)" stroke="none"></path>
+<!-- Graduations -->
+<g stroke="rgba(255,255,255,0.6)" stroke-width="1.5">
+<line x1="205" y1="180" x2="205" y2="190"></line>
+<line x1="200" y1="180" x2="200" y2="185"></line>
+<line x1="195" y1="180" x2="195" y2="185"></line>
+<line x1="190" y1="180" x2="190" y2="185"></line>
+<line x1="185" y1="180" x2="185" y2="185"></line>
+<line x1="180" y1="180" x2="180" y2="190"></line>
+<line x1="175" y1="180" x2="175" y2="185"></line>
+<line x1="170" y1="180" x2="170" y2="185"></line>
+<line x1="165" y1="180" x2="165" y2="185"></line>
+<line x1="160" y1="180" x2="160" y2="185"></line>
+<line x1="155" y1="180" x2="155" y2="190"></line>
+<line x1="150" y1="180" x2="150" y2="185"></line>
+<line x1="145" y1="180" x2="145" y2="185"></line>
+<line x1="140" y1="180" x2="140" y2="185"></line>
+<line x1="135" y1="180" x2="135" y2="185"></line>
+<line x1="130" y1="180" x2="130" y2="190"></line>
+</g>
+<text x="205" y="205" fill="rgba(255,255,255,0.8)" font-family="Inter" font-size="12" text-anchor="middle" transform="rotate(90, 205, 205)">0</text>
+<text x="130" y="205" fill="rgba(255,255,255,0.8)" font-family="Inter" font-size="12" text-anchor="middle" transform="rotate(90, 130, 205)">15 ml</text>
+<text x="65" y="195" fill="rgba(255,255,255,0.8)" font-family="Inter" font-size="12" text-anchor="middle" transform="rotate(90, 65, 195)">60 ml</text>
+<!-- Glass highlights -->
+
+
+<!-- Specimen (Wet) -->
+<g id="sim-specimen-group-step5">
+<!-- Overhanging black rubber base -->
+<path d="M 248 114 Q 248 122 255 122 L 345 122 Q 352 122 352 114 Z" fill="#111827"></path>
+<!-- Upper dark grey block -->
+<rect fill="#374151" height="12" rx="2" width="96" x="252" y="102"></rect>
+<!-- Black dot -->
+<circle cx="265" cy="108" fill="#111827" r="2.5"></circle>
+<!-- White wire scribble on top -->
+
+<line stroke="#a0aec0" stroke-width="3" x1="300" x2="300" y1="80" y2="214"></line>
+<rect fill="#92400e" filter="url(#leather-noise)" height="6" id="drain-leather" rx="1" stroke="#78350f" stroke-width="1" width="70" x="265" y="214"></rect>
+</g>
+</g>
+</svg>
+</div>
+
+<!-- Right column containing timer on top and magnified reading scale below -->
+<div class="drain-controls-column">
+<div class="drain-timer-container">
+<span class="timer-label">Drainage Stand</span>
+<div class="timer-display miniature" id="drain-timer-val">60s</div>
+<button class="btn primary" id="btn-start-drain">Start Draining</button>
+<button class="btn secondary" id="btn-lapse-drain" style="display:none;" title="Fast forward 60 seconds">Time Lapse</button>
+</div>
+
+<!-- Mag Lens close up -->
+<div class="magnified-scale-container" id="magnified-view" style="opacity: 0.3;">
+<div class="mag-lens-badge font-tag">Kubelka Reading (mL)</div>
+<div class="zoom-viewer">
+<svg height="160" id="zoom-scale-svg" viewbox="0 0 100 240" width="90">
+<rect fill="rgba(255,255,255,0.02)" height="220" stroke="#475569" stroke-width="2" width="50" x="25" y="10"></rect>
+<!-- Scale Markings -->
+<line stroke="#f8fafc" stroke-width="2" x1="25" x2="55" y1="30" y2="30"></line>
+<text fill="#f8fafc" font-family="'JetBrains Mono'" font-size="11" x="60" y="34">0.0</text>
+<line stroke="#94a3b8" stroke-width="1" x1="25" x2="45" y1="60" y2="60"></line>
+<text fill="#94a3b8" font-family="'JetBrains Mono'" font-size="10" x="60" y="64">1.0</text>
+<line stroke="#f8fafc" stroke-width="1.5" x1="25" x2="55" y1="90" y2="90"></line>
+<text fill="#cbd5e1" font-family="'JetBrains Mono'" font-size="10" x="60" y="94">2.0</text>
+<line stroke="#94a3b8" stroke-width="1" x1="25" x2="45" y1="120" y2="120"></line>
+<text fill="#94a3b8" font-family="'JetBrains Mono'" font-size="10" x="60" y="124">3.0</text>
+<line stroke="#f8fafc" stroke-width="1.5" x1="25" x2="55" y1="150" y2="150"></line>
+<text fill="#cbd5e1" font-family="'JetBrains Mono'" font-size="10" x="60" y="154">4.0</text>
+<line stroke="#94a3b8" stroke-width="1" x1="25" x2="45" y1="180" y2="180"></line>
+<text fill="#94a3b8" font-family="'JetBrains Mono'" font-size="10" x="60" y="184">5.0</text>
+<line stroke="#f8fafc" stroke-width="2" x1="25" x2="55" y1="210" y2="210"></line>
+<text fill="#f8fafc" font-family="'JetBrains Mono'" font-size="11" x="60" y="214">6.0</text>
+<!-- Menuiscus line with curved boundary -->
+<path d="M 25,230 L 25,112 Q 50,116 75,112 L 75,230 Z" fill="rgba(56, 189, 248, 0.45)" id="zoom-water" stroke="rgba(56, 189, 248, 0.85)" stroke-width="1.5"></path>
+</svg>
+</div>
+<div class="readout-box">
+<span class="read-label">Water Absorbed (V₁):</span>
+<span class="read-val" id="final-volume-value">-- mL</span>
+</div>
+</div>
+</div>
+</div>
+</div><div class="sim-screen" id="screen-step6">
+<div class="workspace-label">Observations & Calculations</div>
+<div class="report-area">
+<!-- Math Calculations card -->
+<div class="card report-calc-card">
+  <div class="card-header-clean">
+    <h4 class="font-tag">Calculations & Verification</h4>
+    <span class="calc-badge">ISO 2417 Formulae</span>
+  </div>
+  
+  <!-- Math Formula Cards -->
+  <div class="formula-container">
+    <div class="formula-card">
+      <div class="formula-header">
+        <span class="formula-name">Absorption by Mass (Q)</span>
+        <span class="formula-unit">mL / 100 g (%)</span>
+      </div>
+      <div class="formula-math-display">
+        <span class="math-var">Q</span>
+        <span class="math-eq">=</span>
+        <div class="math-fraction">
+          <span class="numerator">V<sub>1</sub></span>
+          <span class="fraction-line"></span>
+          <span class="denominator">m<sub>1</sub></span>
+        </div>
+        <span class="math-op">×</span>
+        <span class="math-num">100</span>
+      </div>
+      <div class="formula-explanation">Where <strong>V₁</strong> is absorbed water (mL) and <strong>m₁</strong> is initial dry mass (g).</div>
+    </div>
+
+    <div class="formula-card">
+      <div class="formula-header">
+        <span class="formula-name">Absorption by Volume (P)</span>
+        <span class="formula-unit">mL / 100 cm³ (%)</span>
+      </div>
+      <div class="formula-math-display">
+        <span class="math-var">P</span>
+        <span class="math-eq">=</span>
+        <div class="math-fraction">
+          <span class="numerator">V<sub>1</sub></span>
+          <span class="fraction-line"></span>
+          <span class="denominator">V<sub>0</sub></span>
+        </div>
+        <span class="math-op">×</span>
+        <span class="math-num">100</span>
+      </div>
+      <div class="formula-explanation">Where <strong>V₀ = m₁ / ρ</strong> is specimen dry volume (cm³), and <strong>ρ</strong> is density.</div>
+    </div>
+  </div>
+
+  <div class="calc-input-group">
+    <div class="input-row">
+      <label>Dry Mass (m₁):</label>
+      <input class="input-readonly" id="calc-m1" readonly="" type="text"/>
+      <span class="unit">g</span>
+    </div>
+    <div class="input-row">
+      <label>Absorbed Vol (V₁):</label>
+      <input class="input-readonly" id="calc-v" readonly="" type="text"/>
+      <span class="unit">mL</span>
+    </div>
+    <div class="input-row">
+      <label>Specimen Volume (V₀):</label>
+      <input class="input-readonly" id="calc-v0" readonly="" type="text"/>
+      <span class="unit">cm³</span>
+    </div>
+    <div class="input-row">
+      <label>Density (ρ):</label>
+      <input class="input-readonly" id="calc-density" readonly="" type="text"/>
+      <span class="unit">g/cm³</span>
+    </div>
+    <div class="input-row highlight">
+      <label for="user-q-calc">Enter Q (Mass %):</label>
+      <input id="user-q-calc" placeholder="e.g. 29.54" step="0.01" type="number"/>
+      <span class="unit">%</span>
+    </div>
+    <div class="input-row highlight">
+      <label for="user-p-calc">Enter P (Volume %):</label>
+      <input id="user-p-calc" placeholder="e.g. 23.04" step="0.01" type="number"/>
+      <span class="unit">%</span>
+    </div>
+  </div>
+  <div class="calc-actions">
+    <button class="btn accent-btn" id="btn-check-calc">Verify Calculations</button>
+    <button class="btn secondary btn-sm" id="btn-calc-helper" type="button">Show Solution Steps</button>
+  </div>
+  <div class="feedback-msg" id="calc-feedback"></div>
+  <div class="solution-steps-box" id="solution-steps" style="display: none;"></div>
+</div>
+
+<!-- Official laboratory report -->
+<div class="card virtual-report-card" id="virtual-report">
+  <div class="report-header">
+    <div>
+      <h3 class="font-tag">TEST REPORT</h3>
+      <span class="report-subtitle">Static Water Absorption (ISO 2417 / IUP 7)</span>
+    </div>
+    <span class="report-date" id="report-date-field">Date: 2026-08-31</span>
+  </div>
+  <div class="report-divider"></div>
+  <div class="report-body">
+    <div class="report-meta">
+      <p><strong>Standard Method:</strong> ISO 2417:2016 (IUP 7) • Kubelka Method</p>
+      <p><strong>Test Conditions:</strong> 20.0°C ± 2.0°C • Static Immersion for 30 min • 60s Drainage</p>
+    </div>
+    <table class="report-table">
+      <thead>
+        <tr>
+          <th>Parameter</th>
+          <th>Measured / Calculated Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Leather Specimen Type</td>
+          <td id="rep-leather-type">--</td>
+        </tr>
+        <tr>
+          <td>Specimen Diameter</td>
+          <td>70.0 mm</td>
+        </tr>
+        <tr>
+          <td>Specimen Thickness</td>
+          <td id="rep-thickness">--</td>
+        </tr>
+        <tr>
+          <td>Initial Dry Mass (m₁)</td>
+          <td id="rep-dry-mass">-- g</td>
+        </tr>
+        <tr>
+          <td>Initial Water Volume</td>
+          <td>75.0 mL</td>
+        </tr>
+        <tr>
+          <td>Residual Water Volume</td>
+          <td id="rep-end-volume">-- mL</td>
+        </tr>
+        <tr>
+          <td>Net Water Absorbed (V₁)</td>
+          <td id="rep-absorbed-volume">-- mL</td>
+        </tr>
+        <tr class="highlight-row">
+          <td><strong>Water Absorption by Mass (Q)</strong></td>
+          <td id="rep-q-result"><strong>-- %</strong></td>
+        </tr>
+        <tr class="highlight-row">
+          <td><strong>Water Absorption by Volume (P)</strong></td>
+          <td id="rep-p-result"><strong>-- %</strong></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="report-conclusion">
+      <h5 class="font-tag">Observation & Standard Analysis:</h5>
+      <p id="report-conclusion-text">--</p>
+    </div>
+  </div>
+  <div class="report-divider"></div>
+  <div class="report-footer">
+    <button class="btn primary btn-sm" id="btn-print-report">Print / Export PDF</button>
+    <button class="btn secondary btn-sm" id="btn-restart-sim">Reset Experiment</button>
+  </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Step 6: Calculations & Virtual Report -->
+</div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- MathJax Equations rendering -->
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']]
+    },
+    svg: {
+      fontCache: 'global'
+    }
+  };
+</script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<!-- Script File -->
+<script src="app.js"></script>
+</body>
+</html>
